@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Este es el archivo de diseño (layout) principal de nuestra actividad.
+Un archivo de diseño XML define la estructura de la interfaz de usuario.
+-->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".MainActivity">
+
+    <!--
+    ConstraintLayout es un contenedor que permite posicionar y dimensionar
+    otros elementos (vistas) de forma flexible utilizando restricciones.
+    - xmlns:android, xmlns:app, xmlns:tools: Definen "espacios de nombres" para los atributos que usaremos.
+    - android:id="@+id/main": Un identificador único para este layout.
+    - android:layout_width="match_parent": El ancho del layout ocupará todo el ancho de la pantalla del dispositivo.
+    - android:layout_height="match_parent": El alto del layout ocupará todo el alto de la pantalla.
+    - android:padding="16dp": Agrega un espacio de relleno de 16 "píxeles independientes de la densidad" (dp) en todos los lados del layout.
+    - tools:context=".MainActivity": Indica a Android Studio que este layout está asociado con MainActivity.kt, lo que ayuda con la vista previa.
+    -->
+
+    <!--
+    MaterialTextView es un componente de texto de la biblioteca de Material Design.
+    Muestra el título principal de la pantalla.
+    -->
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/title_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mis Tareas"
+        android:textAppearance="?attr/textAppearanceHeadline5"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+    <!--
+    - android:id="@+id/title_textview": Identificador único para este TextView.
+    - android:layout_width="wrap_content": El ancho se ajustará al contenido del texto.
+    - android:layout_height="wrap_content": El alto se ajustará al contenido del texto.
+    - android:text="Mis Tareas": El texto que se mostrará.
+    - android:textAppearance: Define el estilo del texto (tamaño, fuente, etc.). "?attr/textAppearanceHeadline5" usa un estilo predefinido del tema de la app.
+    - app:layout_constraintTop_toTopOf="parent": Restricción. La parte superior de este TextView se alinea con la parte superior de su contenedor (el ConstraintLayout).
+    - app:layout_constraintStart_toStartOf="parent": Restricción. El inicio (izquierda) de este TextView se alinea con el inicio de su contenedor.
+    - app:layout_constraintEnd_toEndOf="parent": Restricción. El final (derecha) de este TextView se alinea con el final de su contenedor.
+      (Las restricciones de inicio y fin juntas lo centran horizontalmente).
+    -->
+
+
+    <!--
+    MaterialCardView es un contenedor que muestra contenido dentro de una "tarjeta" con sombras y esquinas redondeadas.
+    Esta tarjeta mostrará todas las tareas.
+    -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/all_tasks_card"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        app:cardElevation="4dp"
+        app:layout_constraintTop_toBottomOf="@id/title_textview"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!--
+        - android:layout_width="0dp": En ConstraintLayout, 0dp significa "match_constraint". El ancho se expandirá para llenar el espacio definido por sus restricciones (en este caso, de inicio a fin del padre).
+        - android:layout_marginTop="24dp": Agrega un margen de 24dp en la parte superior de la tarjeta.
+        - app:cardElevation="4dp": Define la "elevación" de la tarjeta, lo que crea un efecto de sombra.
+        - app:layout_constraintTop_toBottomOf="@id/title_textview": Restricción. La parte superior de la tarjeta se alinea con la parte inferior del TextView del título.
+        -->
+
+        <!--
+        LinearLayout es un contenedor que organiza a sus hijos en una sola dirección, ya sea vertical u horizontal.
+        -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+            <!--
+            - android:orientation="vertical": Los elementos dentro de este LinearLayout se apilarán verticalmente.
+            -->
+
+            <!-- Título dentro de la primera tarjeta -->
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/all_tasks_title"
+                style="?attr/textAppearanceHeadline6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Todas las tareas:"
+                android:textColor="?attr/colorPrimary" />
+            <!--
+            - style="?attr/textAppearanceHeadline6": Otra forma de aplicar un estilo de texto predefinido.
+            - android:textColor="?attr/colorPrimary": Establece el color del texto al color primario definido en el tema de la aplicación.
+            -->
+
+            <!-- TextView para mostrar la lista de todas las tareas -->
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/all_tasks_textview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textAppearance="?attr/textAppearanceBody1"
+                tools:text="Tarea 1\nTarea 2" />
+            <!--
+            - tools:text: Este es un atributo para la vista previa en Android Studio. El texto que pongas aquí solo se verá en el editor de diseño, no cuando ejecutes la app. Es útil para ver cómo quedará el diseño con datos de ejemplo.
+            -->
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!--
+    Segunda MaterialCardView para mostrar solo las tareas completadas.
+    Es muy similar a la primera tarjeta.
+    -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/completed_tasks_card"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:cardElevation="4dp"
+        app:layout_constraintTop_toBottomOf="@id/all_tasks_card"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+        <!--
+        - app:layout_constraintTop_toBottomOf="@id/all_tasks_card": La restricción clave aquí. La parte superior de esta tarjeta se alinea con la parte inferior de la tarjeta anterior (@id/all_tasks_card).
+        -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Título dentro de la segunda tarjeta -->
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/completed_tasks_title"
+                style="?attr/textAppearanceHeadline6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tareas completadas:"
+                android:textColor="?attr/colorPrimary" />
+
+            <!-- TextView para mostrar la lista de tareas completadas -->
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/completed_tasks_textview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textAppearance="?attr/textAppearanceBody1"
+                tools:text="Tarea completada 1" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/add_task_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:contentDescription="Agregar nueva tarea"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@android:drawable/ic_input_add" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
